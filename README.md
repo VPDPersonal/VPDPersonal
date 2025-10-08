@@ -29,15 +29,15 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 [![UnityFastTools](https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=UnityFastTools&theme=merko)](https://github.com/VPDPersonal/UnityFastTools)
 
 ## 🐍 Tech Stack
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=unity,cs" />
-</p>
+<img src="https://skillicons.dev/icons?i=unity,cs,git" />
 
 ---
 
 ## 🐍 Atatistics
-![VPDPersonal's GitHub Stats](https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko)
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko)
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko" alt="GitHub Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko" alt="GitHub Streak" />
+</p>
 
 <!--
 **VPDPersonal/VPDPersonal** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
