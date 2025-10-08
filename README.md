@@ -24,6 +24,7 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 
 ---
 
+<!--
 ## 🐍 Featured Projects
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.MVVM&theme=merko" />
@@ -34,6 +35,7 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 <img src="https://skillicons.dev/icons?i=unity,cs,git" />
 
 ---
+-->
 
 ## 🐍 Atatistics
 <p align="center">
