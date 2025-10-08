@@ -25,8 +25,10 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 ---
 
 ## 🐍 Featured Projects
-[![Aspid.MVVM](https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.MVVM&theme=merko)](https://github.com/VPDPersonal/Aspid.MVVM)
-[![UnityFastTools](https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=UnityFastTools&theme=merko)](https://github.com/VPDPersonal/UnityFastTools)
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.MVVM&theme=merko" />
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=UnityFastTools&theme=merko" />
+</p>
 
 ## 🐍 Tech Stack
 <img src="https://skillicons.dev/icons?i=unity,cs,git" />
