@@ -27,10 +27,10 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 
 ## 🐍 Featured Projects
 <p align="center">
-  <a href="https://github.com/anuraghazra/github-readme-stats">
+  <a href="https://github.com/VPDPersonal/Aspid.MVVM">
     <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.MVVM&theme=merko" />
   </a>
-  <a href="https://github.com/anuraghazra/convoychat">
+  <a href="https://github.com/VPDPersonal/Aspid.UnityFastTools">
     <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.UnityFastTools&theme=merko" />
   </a>
 </p>
