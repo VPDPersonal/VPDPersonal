@@ -28,7 +28,7 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 ## 🐍 Atatistics
 <p align="center">
   <img align="center" src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&card_width=125&theme=merko" />
-  <img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&card_width=425&theme=merko" />
+  <img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&card_width=400&theme=merko" />
 </a>
 
   <!--
