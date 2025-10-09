@@ -25,6 +25,19 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 
 ---
 
+## 🐍 Atatistics
+<p align="center">
+  <img align="center" src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko" />
+  <img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko" />
+</a>
+
+  <!--
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko" alt="GitHub Stats" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko" alt="GitHub Streak" />
+</p>
+
+
 ## 🐍 Featured Projects
 <p align="center">
   <a href="https://github.com/VPDPersonal/Aspid.MVVM">
@@ -35,15 +48,8 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
   </a>
 </p>
 
-<!--
+
 ---
-
-
-## 🐍 Featured Projects
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.MVVM&theme=merko" />
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.UnityFastTools&theme=merko" />
-</p>
 
 ## 🐍 Tech Stack
 <img src="https://skillicons.dev/icons?i=unity,cs,git" />
