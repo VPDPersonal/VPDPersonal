@@ -2,7 +2,7 @@
     <img src="https://capsule-render.vercel.app/api?type=waving&color=50c878&height=200&section=header&text=Hello!%20My%20name%20is%20Vladislav-nl-I%20am%20a%20Unity%20Developer&fontSize=35&animation=fadeIn&fontAlignY=30&"/>
 </p>
 
-**[Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM)** $\color{#6aba7d}\large{\textbf{is a sleek, reflection-free MVVM framework for Unity, striking at GC allocations for faster, cleaner development}}$
+**[Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM)** $\color{#6aba7d}\large{\textsf{is a sleek, reflection-free MVVM framework for Unity, striking at GC allocations for faster, cleaner development}}$
 
 
 <p align="center">
