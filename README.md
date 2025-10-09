@@ -1,7 +1,6 @@
-<h1 align="center">   
-  Hello! My name is Vladislav 
-  <br> I am a Unity Developer  
-</h1> 
+<p align='center'>
+    <img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=250&section=header&text=Hello!%20My%20name%20is%20Vladislav-nl-I%20am%20a%20Unity%20Developer&fontSize=50&animation=fadeIn&fontAlignY=30&"/>
+</p>
 
 My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflection-free MVVM framework for Unity, striking at GC allocations for faster, cleaner development.
 
