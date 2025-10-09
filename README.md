@@ -5,6 +5,7 @@
 
 My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflection-free MVVM framework for Unity, striking at GC allocations for faster, cleaner development.
 
+
 <p align="center">
   <picture>
     <source
@@ -22,9 +23,10 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
   </picture>
 </p>
 
+<!--
 ---
 
-<!--
+
 ## 🐍 Featured Projects
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.MVVM&theme=merko" />
@@ -35,7 +37,7 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
 <img src="https://skillicons.dev/icons?i=unity,cs,git" />
 
 ---
--->
+
 
 ## 🐍 Atatistics
 <p align="center">
@@ -43,6 +45,7 @@ My [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM) is a sleek, reflectio
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko" alt="GitHub Streak" />
 </p>
 
+-->
 <!--
 **VPDPersonal/VPDPersonal** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
