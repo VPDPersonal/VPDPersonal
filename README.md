@@ -4,7 +4,6 @@
 
 **[Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM)** $\color{#6aba7d}\large{\textsf{is a high-performance MVVM framework for Unity, built on Source Generator.}}$
 
-
 <p align="center">
   <picture>
     <source
@@ -22,49 +21,15 @@
   </picture>
 </p>
 
-<!--
+
 ---
 ## 🐍 Statistics
-<p align="center">
-  <img align="center" src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&card_width=125&theme=merko" />
-      
-  <img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&card_width=400&theme=merko" />
-    <!--
-</a>
 
-  <!--
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko" alt="GitHub Stats" />
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko" alt="GitHub Streak" />
 </p>
 
-
-## 🐍 Featured Projects
-<p align="center">
-  <a href="https://github.com/VPDPersonal/Aspid.MVVM">
-    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.MVVM&theme=merko" />
-  </a>
-  <a href="https://github.com/VPDPersonal/Aspid.UnityFastTools">
-    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=VPDPersonal&repo=Aspid.UnityFastTools&theme=merko" />
-  </a>
-</p>
-
-
----
-
-## 🐍 Tech Stack
-<img src="https://skillicons.dev/icons?i=unity,cs,git" />
-
----
-
-
-## 🐍 Atatistics
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko" alt="GitHub Stats" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko" alt="GitHub Streak" />
-</p>
-
--->
 <!--
 **VPDPersonal/VPDPersonal** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
