@@ -21,14 +21,11 @@
   </picture>
 </p>
 
-
----
 ## 🐍 Statistics
-
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko" alt="GitHub Stats" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&theme=merko" alt="GitHub Streak" />
-</p>
+  <img align="center" src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&card_width=125&theme=merko" />
+  <img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&card_width=400&theme=merko" />
+</a>
 
 <!--
 **VPDPersonal/VPDPersonal** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
