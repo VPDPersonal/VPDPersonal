@@ -55,17 +55,6 @@ I design and ship developer tooling for Unity and .NET — focused on **performa
   <img src="https://github-readme-stats.vercel.app/api?username=VPDPersonal&show_icons=true&theme=merko&hide_border=true&card_width=450" alt="GitHub stats"/>
 </p>
 
-<details>
-  <summary>🐍 Contribution snake</summary>
-  <p align="center">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake-dark.svg"/>
-      <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake.svg"/>
-      <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake.svg"/>
-    </picture>
-  </p>
-</details>
-
 ---
 
 ### Connect
