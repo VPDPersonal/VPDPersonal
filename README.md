@@ -11,8 +11,6 @@
 
 I design and ship developer tooling for Unity and .NET — focused on **performance** (no reflection, source-generated bindings, minimal allocations) and **DX** (less boilerplate, better Inspector workflows). My libraries are used in production projects and published on the **Unity Asset Store** and **NuGet**.
 
-Open to interesting collaborations on Unity, C# tooling, or Roslyn source-generator work — see below for ways to reach me.
-
 ---
 
 ### Featured projects
