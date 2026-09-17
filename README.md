@@ -1,9 +1,13 @@
-<h1 align="center">Vladislav Panin</h1>
+<div align="center">
 
-<p align="center">
-  <i>Unity Developer · C# · Source Generators · Tooling</i><br/>
-  Building open-source MVVM and tooling for Unity. Author of <b><a href="https://github.com/VPDPersonal/Aspid.MVVM">Aspid.MVVM</a></b>.
-</p>
+# Vladislav Panin
+
+*Senior Unity Developer / Architect · C# · Roslyn Source Generators · Dev Tooling*
+
+Building open-source MVVM and developer tooling for Unity.
+Author of [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM).
+
+</div>
 
 ---
 
@@ -15,53 +19,36 @@ I design and ship developer tooling for Unity and .NET — focused on **performa
 
 ### Featured projects
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <h4>🧩 <a href="https://github.com/VPDPersonal/Aspid.MVVM">Aspid.MVVM</a></h4>
-      <p>High-performance MVVM framework for Unity. Source-generated bindings — no reflection, no boxing, minimal allocations. Supports OneWay / TwoWay / OneTime / OneWayToSource, RelayCommand, observable collections, and Zenject / VContainer integration.</p>
-      <a href="https://github.com/VPDPersonal/Aspid.MVVM/stargazers"><img src="https://img.shields.io/github/stars/VPDPersonal/Aspid.MVVM?style=flat&label=%E2%98%85&labelColor=2D2D2D&color=4fa35d"/></a>
-      <a href="https://assetstore.unity.com/packages/tools/utilities/aspid-mvvm-298463"><img src="https://img.shields.io/badge/Unity_Asset_Store-Aspid_MVVM-4fa35d?style=flat&labelColor=2D2D2D&logo=unity&logoColor=white"/></a>
-      <a href="https://vpd-inc.gitbook.io/aspid.mvvm/"><img src="https://img.shields.io/badge/Docs-GitBook-4fa35d?style=flat&labelColor=2D2D2D&logo=gitbook&logoColor=white"/></a>
-      <a href="https://discussions.unity.com/t/released-aspid-mvvm/1684510"><img src="https://img.shields.io/badge/Unity_Discussions-thread-4fa35d?style=flat&labelColor=2D2D2D&logo=unity&logoColor=white"/></a>
-    </td>
-    <td width="50%" valign="top">
-      <h4>⚡ <a href="https://github.com/VPDPersonal/Aspid.FastTools">Aspid.FastTools</a></h4>
-      <p>A set of Unity utilities and UIToolkit extensions to cut down routine code — including USS custom-style helpers and Inspector tooling.</p>
-      <a href="https://github.com/VPDPersonal/Aspid.FastTools/stargazers"><img src="https://img.shields.io/github/stars/VPDPersonal/Aspid.FastTools?style=flat&label=%E2%98%85&labelColor=2D2D2D&color=4fa35d"/></a>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <h4>📚 <a href="https://github.com/VPDPersonal/Aspid.Collections">Aspid.Collections</a></h4>
-      <p>Observable collections (List / Dictionary / HashSet / Stack / Queue) with covariant views, filtering, and sorting — designed for one-way and two-way synchronization between a source and its views.</p>
-      <a href="https://github.com/VPDPersonal/Aspid.Collections/stargazers"><img src="https://img.shields.io/github/stars/VPDPersonal/Aspid.Collections?style=flat&label=%E2%98%85&labelColor=2D2D2D&color=4fa35d"/></a>
-    </td>
-    <td width="50%" valign="top">
-      <h4>🛠 <a href="https://github.com/VPDPersonal/Aspid.Generators.Helper">Aspid.Generators.Helper</a></h4>
-      <p>Utilities for building Roslyn source generators — reduces ceremony for diagnostic-driven and incremental generators. Available on NuGet in both pure-.NET and Unity-flavored builds.</p>
-      <a href="https://www.nuget.org/packages/Aspid.Generators.Helper"><img src="https://img.shields.io/nuget/v/Aspid.Generators.Helper?style=flat&label=NuGet&labelColor=2D2D2D&color=4fa35d&logo=nuget&logoColor=white"/></a>
-      <a href="https://www.nuget.org/packages/Aspid.Generators.Helper"><img src="https://img.shields.io/nuget/dt/Aspid.Generators.Helper?style=flat&label=downloads&labelColor=2D2D2D&color=4fa35d"/></a>
-      <a href="https://www.nuget.org/packages/Aspid.Generators.Helper.Unity"><img src="https://img.shields.io/nuget/v/Aspid.Generators.Helper.Unity?style=flat&label=NuGet%20%28Unity%29&labelColor=2D2D2D&color=4fa35d&logo=nuget&logoColor=white"/></a>
-    </td>
-  </tr>
-</table>
+| | |
+| :-- | :-- |
+| 🧩 **[Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM)**<br><br>High-performance MVVM framework for Unity. Source-generated bindings — no reflection, no boxing, minimal allocations. Supports OneWay / TwoWay / OneTime / OneWayToSource, RelayCommand, observable collections, and Zenject / VContainer integration.<br><br>[![stars](https://img.shields.io/github/stars/VPDPersonal/Aspid.MVVM?style=flat&label=%E2%98%85&labelColor=24292e&color=2ea44f)](https://github.com/VPDPersonal/Aspid.MVVM/stargazers) [![Asset Store](https://img.shields.io/badge/Unity_Asset_Store-Aspid_MVVM-2ea44f?style=flat&logo=unity&logoColor=white&labelColor=24292e)](https://assetstore.unity.com/packages/tools/utilities/aspid-mvvm-298463) [![Docs](https://img.shields.io/badge/Docs-GitBook-2ea44f?style=flat&logo=gitbook&logoColor=white&labelColor=24292e)](https://vpd-inc.gitbook.io/aspid.mvvm/) | ⚡ **[Aspid.FastTools](https://github.com/VPDPersonal/Aspid.FastTools)**<br><br>A set of Unity utilities and UIToolkit extensions to cut down routine code — including USS custom-style helpers and Inspector tooling.<br><br>[![stars](https://img.shields.io/github/stars/VPDPersonal/Aspid.FastTools?style=flat&label=%E2%98%85&labelColor=24292e&color=2ea44f)](https://github.com/VPDPersonal/Aspid.FastTools/stargazers) [![Asset Store](https://img.shields.io/badge/Unity_Asset_Store-Aspid_FastTools-2ea44f?style=flat&logo=unity&logoColor=white&labelColor=24292e)](https://assetstore.unity.com/packages/slug/365584) [![Docs](https://img.shields.io/badge/Docs-GitHub_Pages-2ea44f?style=flat&logo=github&logoColor=white&labelColor=24292e)](https://vpdpersonal.github.io/Aspid.FastTools/) |
+| 📚 **[Aspid.Collections](https://github.com/VPDPersonal/Aspid.Collections)**<br><br>Observable collections (List / Dictionary / HashSet / Stack / Queue) with covariant views, filtering, and sorting — designed for one-way and two-way synchronization between a source and its views.<br><br>[![stars](https://img.shields.io/github/stars/VPDPersonal/Aspid.Collections?style=flat&label=%E2%98%85&labelColor=24292e&color=2ea44f)](https://github.com/VPDPersonal/Aspid.Collections/stargazers) | 🛠 **[Aspid.Generators.Helper](https://github.com/VPDPersonal/Aspid.Generators.Helper)**<br><br>Utilities for building Roslyn source generators — reduces ceremony for diagnostic-driven and incremental generators. Available on NuGet in both pure-.NET and Unity-flavored builds.<br><br>[![NuGet](https://img.shields.io/nuget/v/Aspid.Generators.Helper?style=flat&logo=nuget&logoColor=white&label=NuGet&labelColor=24292e&color=2ea44f)](https://www.nuget.org/packages/Aspid.Generators.Helper) [![downloads](https://img.shields.io/nuget/dt/Aspid.Generators.Helper?style=flat&label=downloads&labelColor=24292e&color=2ea44f)](https://www.nuget.org/packages/Aspid.Generators.Helper) |
+
+All Aspid packages are MIT, shipped via UPM, Unity Asset Store and NuGet. Release pipeline runs on GitHub Actions: upm branches, stable and preview channels, documentation sites.
 
 ---
 
-### Stats
+### Also building
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/VPDPersonal/VPDPersonal/main/profile-summary-card-output/merko/3-stats.svg" alt="GitHub stats"/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=VPDPersonal&hide_border=true&card_width=400&theme=merko" alt="GitHub streak stats"/>
-</p>
+Working on tooling that makes the developer's day-to-day easier — coming soon.
 
 ---
 
-### Connect
+### Stack
 
-<p>
-  <a href="https://x.com/VPDInc"><img src="https://img.shields.io/badge/X-@VPDInc-000000?style=flat&labelColor=2D2D2D&logo=x&logoColor=white"/></a>
-  <a href="https://www.linkedin.com/in/vladislav-panin-965048314/"><img src="https://img.shields.io/badge/LinkedIn-Vladislav_Panin-0A66C2?style=flat&labelColor=2D2D2D&logo=linkedin&logoColor=white"/></a>
-  <a href="mailto:vpd.aspid@gmail.com"><img src="https://img.shields.io/badge/Email-vpd.aspid@gmail.com-4fa35d?style=flat&labelColor=2D2D2D&logo=gmail&logoColor=white"/></a>
-</p>
+![C#](https://img.shields.io/badge/C%23-24292e?style=flat&logo=csharp&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-24292e?style=flat&logo=dotnet&logoColor=white)
+![Unity](https://img.shields.io/badge/Unity-24292e?style=flat&logo=unity&logoColor=white)
+![Roslyn](https://img.shields.io/badge/Roslyn_Source_Generators-24292e?style=flat)
+![DOTS](https://img.shields.io/badge/DOTS_%2F_ECS-24292e?style=flat)
+![UI Toolkit](https://img.shields.io/badge/UI_Toolkit-24292e?style=flat)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-24292e?style=flat&logo=githubactions&logoColor=white)
+
+---
+
+<div align="center">
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Vladislav_Panin-2ea44f?style=flat&logo=linkedin&logoColor=white&labelColor=24292e)](https://www.linkedin.com/in/vladislav-panin-965048314/)
+[![X](https://img.shields.io/badge/X-%40VPDInc-2ea44f?style=flat&logo=x&logoColor=white&labelColor=24292e)](https://x.com/VPDInc)
+
+</div>
