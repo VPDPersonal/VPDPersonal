@@ -48,7 +48,7 @@ Working on tooling that makes the developer's day-to-day easier — coming soon.
 
 <div align="center">
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Vladislav_Panin-2ea44f?style=flat&logo=linkedin&logoColor=white&labelColor=24292e)](https://www.linkedin.com/in/vladislav-panin-965048314/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Vladislav_Panin-2ea44f?style=flat&logo=linkedin&logoColor=white&labelColor=24292e)](https://www.linkedin.com/in/vpdaspid/)
 [![X](https://img.shields.io/badge/X-%40VPDInc-2ea44f?style=flat&logo=x&logoColor=white&labelColor=24292e)](https://x.com/VPDInc)
 
 </div>
