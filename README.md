@@ -30,7 +30,6 @@ All Aspid packages are MIT, shipped via UPM, Unity Asset Store and NuGet. Releas
 
 ### Also building
 
-- 🤖 **[Aspid.AgentKit](https://github.com/VPDPersonal/Aspid.AgentKit)** — Claude Code plugins and Agent Skills for Codex, Cursor, Gemini CLI, Copilot and others.
 - 🌳 **[Aspid.Core.HSM](https://github.com/VPDPersonal/Aspid.Core.HSM)** — hierarchical state machine for Unity, powered by Roslyn source generators: composable states, guarded transitions, pluggable controllers.
 
 ---
