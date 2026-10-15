@@ -50,7 +50,6 @@ All Aspid packages are MIT, shipped via UPM, Unity Asset Store and NuGet. Releas
 **Looking for a Senior Unity Developer role in client architecture or developer tools; open to Lead roles. Remote or relocation. Available now.**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Vladislav_Panin-2ea44f?style=flat&logo=linkedin&logoColor=white&labelColor=24292e)](https://www.linkedin.com/in/vpdaspid/)
-[![Telegram](https://img.shields.io/badge/Telegram-%40vpdaspid-2ea44f?style=flat&logo=telegram&logoColor=white&labelColor=24292e)](https://t.me/vpdaspid)
 [![Email](https://img.shields.io/badge/Email-vpd.aspid%40gmail.com-2ea44f?style=flat&logo=gmail&logoColor=white&labelColor=24292e)](mailto:vpd.aspid@gmail.com)
 [![Habr](https://img.shields.io/badge/Habr-Aspid.MVVM-2ea44f?style=flat&logo=habr&logoColor=white&labelColor=24292e)](https://habr.com/ru/articles/953134/)
 [![X](https://img.shields.io/badge/X-%40VPDInc-2ea44f?style=flat&logo=x&logoColor=white&labelColor=24292e)](https://x.com/VPDInc)
