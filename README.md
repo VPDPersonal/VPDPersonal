@@ -2,7 +2,7 @@
 
 # Vladislav Panin
 
-*Senior Unity Developer / Architect · C# · Roslyn Source Generators · Dev Tooling*
+*Senior Unity Developer (Mobile & PC) · Client Architecture · Developer Tools*
 
 Building open-source MVVM and developer tooling for Unity.
 Author of [Aspid.MVVM](https://github.com/VPDPersonal/Aspid.MVVM).
@@ -30,7 +30,8 @@ All Aspid packages are MIT, shipped via UPM, Unity Asset Store and NuGet. Releas
 
 ### Also building
 
-Working on tooling that makes the developer's day-to-day easier — coming soon.
+- 🤖 **[Aspid.AgentKit](https://github.com/VPDPersonal/Aspid.AgentKit)** — Claude Code plugins and Agent Skills for Codex, Cursor, Gemini CLI, Copilot and others.
+- 🌳 **[Aspid.Core.HSM](https://github.com/VPDPersonal/Aspid.Core.HSM)** — hierarchical state machine for Unity, powered by Roslyn source generators: composable states, guarded transitions, pluggable controllers.
 
 ---
 
@@ -40,7 +41,6 @@ Working on tooling that makes the developer's day-to-day easier — coming soon.
 ![.NET](https://img.shields.io/badge/.NET-24292e?style=flat&logo=dotnet&logoColor=white)
 ![Unity](https://img.shields.io/badge/Unity-24292e?style=flat&logo=unity&logoColor=white)
 ![Roslyn](https://img.shields.io/badge/Roslyn_Source_Generators-24292e?style=flat)
-![DOTS](https://img.shields.io/badge/DOTS_%2F_ECS-24292e?style=flat)
 ![UI Toolkit](https://img.shields.io/badge/UI_Toolkit-24292e?style=flat)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-24292e?style=flat&logo=githubactions&logoColor=white)
 
@@ -48,7 +48,12 @@ Working on tooling that makes the developer's day-to-day easier — coming soon.
 
 <div align="center">
 
+**Looking for a Senior Unity Developer role in client architecture or developer tools; open to Lead roles. Remote or relocation. Available now.**
+
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Vladislav_Panin-2ea44f?style=flat&logo=linkedin&logoColor=white&labelColor=24292e)](https://www.linkedin.com/in/vpdaspid/)
+[![Telegram](https://img.shields.io/badge/Telegram-%40vpdaspid-2ea44f?style=flat&logo=telegram&logoColor=white&labelColor=24292e)](https://t.me/vpdaspid)
+[![Email](https://img.shields.io/badge/Email-vpd.aspid%40gmail.com-2ea44f?style=flat&logo=gmail&logoColor=white&labelColor=24292e)](mailto:vpd.aspid@gmail.com)
+[![Habr](https://img.shields.io/badge/Habr-Aspid.MVVM-2ea44f?style=flat&logo=habr&logoColor=white&labelColor=24292e)](https://habr.com/ru/articles/953134/)
 [![X](https://img.shields.io/badge/X-%40VPDInc-2ea44f?style=flat&logo=x&logoColor=white&labelColor=24292e)](https://x.com/VPDInc)
 
 </div>
