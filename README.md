@@ -31,6 +31,7 @@ All Aspid packages are MIT, shipped via UPM, Unity Asset Store and NuGet. Releas
 ### Also building
 
 - 🌳 **[Aspid.Core.HSM](https://github.com/VPDPersonal/Aspid.Core.HSM)** — hierarchical state machine for Unity, powered by Roslyn source generators: composable states, guarded transitions, pluggable controllers.
+- 🧰 Also making JetBrains Rider plugins, Chrome extensions and other developer tools.
 
 ---
 
