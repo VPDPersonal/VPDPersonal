@@ -11,7 +11,7 @@
   context.scale(ratio, ratio);
   let seed = 2166136261;
   const random = () => {seed = Math.imul(seed ^ (seed >>> 15), 2246822519); return (seed >>> 0) / 4294967296;};
-  const sparks = Array.from({length: 23}, () => ({x: random() * 1280, offset: random(), radius: 1 + random() * 1.5, drift: 8 + random() * 15}));
+  const sparks = Array.from({length: 23}, () => ({x: random() * 1280, offset: random(), radius: 1.5 + random() * 1.5, drift: 8 + random() * 15}));
 
   function renderAt(milliseconds) {
     const time = ((milliseconds % duration) + duration) % duration / duration;
