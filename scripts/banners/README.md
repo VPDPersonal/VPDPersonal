@@ -30,6 +30,12 @@ ASPID_BANNER_BROWSER='/Applications/Google Chrome.app/Contents/MacOS/Google Chro
 Rendering runs headlessly and uses local fonts and assets. Output is generated under `.artifacts/`, which is
 ignored by Git. Each project produces a 2560×768 PNG fallback and a 1280×384 animated WebP: 196 frames,
 40 milliseconds each, looping indefinitely. Text uses DOM text nodes, not HTML interpolation.
+The renderer embeds the glow mask in the in-memory template before navigation, avoiding Chromium's CORS
+restriction on CSS masks loaded from `file:` URLs. Failed resources stop the build.
+
+Run `npm run test:banner-browser` after installing Chromium to check both projects at 1× and 2× pixel density.
+It verifies that hiding the glow changes captured pixels and that the glow pulses independently of the sparks.
+The workflow runs this check on a banner-cache miss, when Chromium is installed for rendering.
 
 ## Cache and publish
 

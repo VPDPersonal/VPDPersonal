@@ -84,6 +84,24 @@ export async function cacheIsValid(projects, output, digest) {
   } catch {return false;}
 }
 
+export async function loadBannerPage(page, banner) {
+  const failures = [];
+  page.on('requestfailed', request => failures.push(`${request.url()}: ${request.failure()?.errorText}`));
+  page.on('pageerror', error => failures.push(error.message));
+  const [template, mask] = await Promise.all([
+    readFile(path.join(directory, 'template.html'), 'utf8'),
+    readFile(path.join(directory, 'assets/glow.png')),
+  ]);
+  const html = template.replace("url('assets/glow.png')", `url('data:image/png;base64,${mask.toString('base64')}')`);
+  const url = `${pathToFileURL(path.join(directory, 'template.html'))}?capture=1`;
+  // Fulfill the template in memory, retaining file-relative fonts and artwork while avoiding file-mask CORS.
+  await page.route(url, route => route.fulfill({contentType: 'text/html', body: html}));
+  await page.goto(url);
+  await page.evaluate(() => window.ready);
+  await page.evaluate(config => window.AspidBanner.configure(config), banner);
+  if (failures.length) throw new Error(`Banner resources failed: ${failures.join('; ')}`);
+}
+
 export async function ensureBanners(projects, output = path.join(root, '.artifacts/banner-cache')) {
   const configured = bannerProjects(projects);
   const digest = await sourceDigest(projects);
@@ -94,14 +112,11 @@ export async function ensureBanners(projects, output = path.join(root, '.artifac
   const staging = await mkdtemp(path.join(path.dirname(output), '.aspid-banner-build-'));
   const manifest = {digest, width: WIDTH, height: HEIGHT, frames: FRAMES, frameMs: FRAME_MS, files: {}};
   try {
-    const url = `${pathToFileURL(path.join(directory, 'template.html'))}?capture=1`;
     for (const project of configured) {
       const destination = path.join(staging, project.slug);
       await mkdir(destination, {recursive: true});
       const still = await browser.newPage({viewport: {width: WIDTH, height: HEIGHT}, deviceScaleFactor: 2});
-      await still.goto(url);
-      await still.evaluate(() => window.ready);
-      await still.evaluate(config => window.AspidBanner.configure(config), project.banner);
+      await loadBannerPage(still, project.banner);
       const bounds = await still.locator('#copy').evaluate(element => {
         const rectangles = [...element.children].map(child => {
           const range = document.createRange(); range.selectNodeContents(child); return range.getBoundingClientRect();
@@ -112,9 +127,7 @@ export async function ensureBanners(projects, output = path.join(root, '.artifac
       await still.screenshot({path: path.join(destination, 'banner.png')});
       await still.close();
       const page = await browser.newPage({viewport: {width: WIDTH, height: HEIGHT}, deviceScaleFactor: 1});
-      await page.goto(url);
-      await page.evaluate(() => window.ready);
-      await page.evaluate(config => window.AspidBanner.configure(config), project.banner);
+      await loadBannerPage(page, project.banner);
       const frames = path.join(staging, `${project.slug}-frames`);
       await mkdir(frames);
       const inputs = [];

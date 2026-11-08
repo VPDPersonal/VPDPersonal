@@ -43,6 +43,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y webp
       - run: npm test
+      - name: Check captured glow in browser
+        if: steps.banners.outputs.cache-hit != 'true'
+        run: npm run test:banner-browser
       - name: Build banners and current release badges
         run: npm run build
         env:
