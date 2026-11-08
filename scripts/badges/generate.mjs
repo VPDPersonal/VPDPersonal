@@ -90,7 +90,16 @@ export async function fetchProject(project, request = github) {
       const file = await request(`${api}/contents/${candidate}?ref=${encodeURIComponent(release.tag_name)}`, true);
       if (!file) continue;
       if (file.encoding !== 'base64' || file.type !== 'file') throw new Error(`Invalid manifest: ${candidate}`);
-      return releaseData(release, JSON.parse(Buffer.from(file.content, 'base64').toString('utf8')));
+      const manifest = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
+      const data = releaseData(release, manifest);
+      return project.installation ? {...data, packageId: manifest.name, packageName: manifest.displayName} : data;
+    }
+    // Explicit historical Asset Store releases can supply a version, but no Unity minimum or Git installation.
+    if (!release.prerelease && project.legacyReleases?.includes(release.tag_name)) {
+      const version = release.tag_name.replace(/^v/, '');
+      const match = semver.exec(version);
+      if (!match || match[4]) throw new Error(`Invalid legacy stable release: ${release.tag_name}`);
+      return {tag: release.tag_name, version, installation: false};
     }
     throw new Error(`No package manifest at ${project.repository}@${release.tag_name}`);
   }
@@ -104,7 +113,7 @@ export async function generatedFiles(sources) {
       if (!release) continue;
       files.set(`${project.slug}/status-badge-${channel === 'stable' ? 'release' : 'preview'}.svg`,
         await renderBadge(channel === 'stable' ? 'release' : 'preview', release.version));
-      files.set(`${project.slug}/${channel === 'preview' ? 'preview/' : ''}status-badge-unity.svg`,
+      if (release.unity) files.set(`${project.slug}/${channel === 'preview' ? 'preview/' : ''}status-badge-unity.svg`,
         await renderBadge('unity', release.unity));
     }
   }
@@ -119,10 +128,15 @@ async function siteIndex(sources) {
       if (!release) return [];
       const kind = label === 'Stable' ? 'release' : 'preview';
       const unity = `badges/${project.slug}/${label === 'Preview' ? 'preview/' : ''}status-badge-unity.svg`;
+      const unityBadge = release.unity ? `<a href="${unity}"><img src="${unity}" alt="Unity ${escapeXml(release.unity)} or newer"></a>` : '';
+      const installation = `installation/${project.slug}/${label === 'Preview' ? 'preview/' : ''}install`;
+      const walkthrough = project.installation && release.installation !== false
+        ? `<picture class="walkthrough"><source srcset="${installation}.webp" type="image/webp"><img src="${installation}.png" alt="Install ${escapeXml(project.repository.split('/')[1])} ${escapeXml(release.version)} from Git" width="896" height="460"></picture>`
+        : '';
       return [`<div class="channel"><h3>${label}</h3><div class="badges">
         <a href="${repository}/releases${label === 'Stable' ? '/latest' : ''}"><img src="badges/${project.slug}/status-badge-${kind}.svg" alt="${label} ${escapeXml(release.version)}"></a>
-        <a href="${unity}"><img src="${unity}" alt="Unity ${escapeXml(release.unity)} or newer"></a>
-      </div></div>`];
+        ${unityBadge}
+      </div></div>${walkthrough}`];
     }).join('\n');
     const banner = project.banner
       ? `<picture class="banner"><source srcset="banners/${project.slug}/banner.webp" type="image/webp"><img src="banners/${project.slug}/banner.png" alt="${escapeXml(project.banner.title)}" width="1280" height="384"></picture>`
@@ -159,7 +173,7 @@ export async function buildSite(projects, output, loadProject = fetchProject) {
 
 async function main() {
   if (process.argv.length !== 2) throw new Error('Usage: node scripts/badges/generate.mjs');
-  const projects = JSON.parse(await readFile(path.join(directory, 'projects.json'), 'utf8')).map(({banner, ...project}) => project);
+  const projects = JSON.parse(await readFile(path.join(directory, 'projects.json'), 'utf8')).map(({banner, installation, ...project}) => project);
   const output = path.join(root, '.artifacts/badges-site');
   const count = await buildSite(projects, output);
   console.log(`Built ${count} files in ${path.relative(root, output)}`);

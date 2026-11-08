@@ -4,8 +4,9 @@
   "type": "module",
   "engines": {"node": ">=22"},
   "scripts": {
-    "test": "node --test scripts/badges/*.test.mjs scripts/banners/*.test.mjs",
+    "test": "node --test scripts/badges/*.test.mjs scripts/banners/*.test.mjs scripts/installation/*.test.mjs",
     "test:banner-browser": "node --test scripts/banners/tests/browser.test.mjs",
+    "test:media-browser": "node --test scripts/banners/tests/browser.test.mjs scripts/installation/tests/browser.test.mjs",
     "build:banners": "node scripts/banners/render.mjs",
     "build": "node scripts/build-site.mjs"
   },

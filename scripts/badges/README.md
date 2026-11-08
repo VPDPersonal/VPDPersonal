@@ -31,7 +31,7 @@ Use Node.js 22 or newer. The badge-only build fetches current published data and
 api.github.com. Actions uses its built-in token. No npm dependencies, personal access token or separate server
 is required.
 
-The production `npm run build` command combines badges with cached banners in `.artifacts/readme-site/`; see `../banners/README.md`. Enable GitHub Pages for this repository with **Source: GitHub Actions**. The `Shared Aspid README media` workflow
+The production `npm run build` command combines badges with cached banners and installation walkthroughs in `.artifacts/readme-site/`; see `../banners/README.md` and `../installation/README.md`. Enable GitHub Pages for this repository with **Source: GitHub Actions**. The `Shared Aspid README media` workflow
 tests and builds pull requests, but deploys only from `main`. It publishes after generator changes reach `main`,
 hourly at minute 23 UTC, or when run manually. The site is served at
 `https://vpdpersonal.github.io/VPDPersonal/`. Build artifacts have one-day retention; the deployed site remains
@@ -50,6 +50,11 @@ Manifest paths are tried at the release tag, supporting older package layouts wi
 Stable follows GitHub's designated latest stable release; preview follows the most recently published
 non-draft prerelease, even when it predates the current stable release. Tag versions, package versions and
 release channels must agree. Only MIT packages are currently supported.
+
+An exact historical stable tag can be listed in `legacyReleases` when it predates the UPM manifest. This opt-in
+publishes only the release-version badge: it does not infer a Unity minimum or advertise a Git installation.
+Manifests are still preferred when present; missing manifests for unlisted releases remain build errors.
+Aspid.MVVM uses this compatibility entry for `v1.0.5`; its published preview uses the regular tagged manifest.
 
 Edit the SVG templates under [`templates`](templates) to change consumers together. Widths grow with version
 text; output stays a portable 32px-high SVG. The HTML template provides a small badge index for Pages.

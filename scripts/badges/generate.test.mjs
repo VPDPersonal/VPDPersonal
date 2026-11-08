@@ -57,6 +57,47 @@ test('a preview-only project works without advertising a stable release', async 
   assert.match(files.get('aspid-example/status-badge-preview.svg'), /Preview 1.0.0-beta.1/);
 });
 
+test('installation identity comes from the same tagged manifest as the version badge', async () => {
+  const result = await fetchProject({...project, installation: true}, async url => {
+    if (url.endsWith('/releases/latest')) return release('v1.2.3');
+    if (url.includes('/releases?')) return [];
+    return content({...manifest(), name: 'tech.aspid.example', displayName: 'Aspid.Example'});
+  });
+  assert.equal(result.stable.packageId, 'tech.aspid.example');
+  assert.equal(result.stable.packageName, 'Aspid.Example');
+  assert.equal(result.stable.version, '1.2.3');
+});
+
+test('an explicitly listed legacy stable release exposes only its version beside a manifest-backed preview', async (t) => {
+  const configured = {...project, installation: true, legacyReleases: ['v1.0.5']};
+  const requests = [];
+  const result = await fetchProject(configured, async url => {
+    requests.push(url);
+    if (url.endsWith('/releases/latest')) return release('v1.0.5');
+    if (url.includes('/releases?')) return [release('v1.1.0-beta.1', true)];
+    if (url.includes('ref=v1.1.0-beta.1')) return content({...manifest('1.1.0-beta.1'), name: 'tech.aspid.example', displayName: 'Aspid.Example'});
+    return null;
+  });
+  assert.deepEqual(result.stable, {tag: 'v1.0.5', version: '1.0.5', installation: false});
+  assert.equal(result.preview.packageId, 'tech.aspid.example');
+  assert.equal(result.preview.unity, '2021.3.0f1');
+  assert.ok(requests.every(url => !url.includes('ref=main')));
+  const output = await siteDirectory(t);
+  await buildSite([configured], output, async () => result);
+  const index = await readFile(path.join(output, 'index.html'), 'utf8');
+  assert.match(index, /Stable 1\.0\.5/);
+  assert.ok(index.includes('installation/aspid-example/preview/install.webp'));
+  assert.ok(!index.includes('installation/aspid-example/install.webp'));
+  await readFile(path.join(output, 'badges/aspid-example/status-badge-release.svg'));
+  await readFile(path.join(output, 'badges/aspid-example/preview/status-badge-unity.svg'));
+  await assert.rejects(readFile(path.join(output, 'badges/aspid-example/status-badge-unity.svg')), {code: 'ENOENT'});
+  await assert.rejects(fetchProject(configured, async url => {
+    if (url.endsWith('/releases/latest')) return release('v1.0.6');
+    if (url.includes('/releases?')) return [];
+    return null;
+  }), /No package manifest/);
+});
+
 test('an API outage or a missing published manifest fails instead of substituting development data', async () => {
   await assert.rejects(fetchProject(project, async () => {throw new Error('GitHub 503');}), /503/);
   await assert.rejects(fetchProject(project, async (url) => {
