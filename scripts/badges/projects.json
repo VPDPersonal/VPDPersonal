@@ -23,5 +23,19 @@
     "manifests": [
       "Aspid.FastTools/Packages/tech.aspid.fasttools/package.json"
     ]
+  },
+  {
+    "slug": "aspid-mvvm",
+    "repository": "VPDPersonal/Aspid.MVVM",
+    "installation": true,
+    "banner": {
+      "title": "Aspid.MVVM",
+      "subtitle": "Source Generator-based MVVM framework for Unity"
+    },
+    "manifests": [
+      "Aspid.MVVM/Packages/tech.aspid.mvvm/package.json",
+      "package.json"
+    ],
+    "legacyReleases": ["v1.0.5"]
   }
 ]

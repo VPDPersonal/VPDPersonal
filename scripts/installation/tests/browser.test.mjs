@@ -12,6 +12,9 @@ test('Package Manager captures show the correct package and complete channel URL
       {slug: 'aspid-fasttools', repository: 'VPDPersonal/Aspid.FastTools', installation: true,
         stable: {packageId: 'tech.aspid.fasttools', packageName: 'Aspid.FastTools', version: '1.0.0'},
         preview: {packageId: 'tech.aspid.fasttools', packageName: 'Aspid.FastTools', version: '2.0.0-preview.123'}},
+      {slug: 'aspid-mvvm', repository: 'VPDPersonal/Aspid.MVVM', installation: true,
+        stable: {version: '1.0.5', installation: false},
+        preview: {packageId: 'tech.aspid.mvvm', packageName: 'Aspid.MVVM', version: '1.1.0-beta.1'}},
     ];
     for (const job of installationJobs(sources)) {
       for (const deviceScaleFactor of [1, 2]) {

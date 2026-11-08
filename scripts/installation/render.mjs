@@ -25,7 +25,7 @@ export function installationJobs(sources) {
     slugs.add(project.slug);
     for (const channel of ['stable', 'preview']) {
       const release = project[channel];
-      if (!release) continue;
+      if (!release || release.installation === false) continue;
       if (!/^[a-z0-9]+(?:[._-][a-z0-9]+)*$/.test(release.packageId ?? '')
         || typeof release.packageName !== 'string' || !release.packageName.trim() || release.packageName.length > 80
         || /[\x00-\x1f]/.test(release.packageName) || !/^[0-9A-Za-z.+-]{1,100}$/.test(release.version ?? '')) {

@@ -20,6 +20,8 @@ test('installation jobs follow published channels and manifest identity', () => 
   assert.equal(stable.packageName, release.packageName);
   assert.deepEqual(installationJobs([{...project, installation: false}]), []);
   assert.equal(installationJobs([{...project, stable: null, preview: release}]).length, 1);
+  const legacy = {version: '1.0.5', installation: false};
+  assert.deepEqual(installationJobs([{...project, stable: legacy, preview: release}]).map(job => job.channel), ['preview']);
   assert.throws(() => installationJobs([{...project, slug: '../elsewhere'}]), /Invalid installation project/);
   assert.throws(() => installationJobs([project, project]), /Invalid installation project/);
   assert.throws(() => installationJobs([{...project, stable: {...release, packageId: 'bad/id'}}]), /manifest/);

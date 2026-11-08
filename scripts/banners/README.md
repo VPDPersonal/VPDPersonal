@@ -35,7 +35,7 @@ ignored by Git. Each project produces a 2560×768 PNG fallback and a 1280×384 a
 The renderer embeds the glow mask in the in-memory template before navigation, avoiding Chromium's CORS
 restriction on CSS masks loaded from `file:` URLs. Failed resources stop the build.
 
-Run `npm run test:banner-browser` after installing Chromium to check both projects at 1× and 2× pixel density.
+Run `npm run test:banner-browser` after installing Chromium to check all configured projects at 1× and 2× pixel density.
 It verifies that hiding the glow changes captured pixels and that the glow pulses independently of the sparks.
 The workflow runs browser checks on pull requests and whenever a media cache needs rendering.
 

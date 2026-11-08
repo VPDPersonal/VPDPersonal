@@ -3,6 +3,9 @@
 Set `installation: true` in `scripts/badges/projects.json` to generate the Package Manager illustration for a project.
 The generator reads the package name, ID and version from the same tagged manifest as its badges. Stable channels
 type `#upm`; preview channels type `#upm-preview`. Only published channels produce images.
+Configured historical releases without a UPM manifest produce no Git installation image. Aspid.MVVM currently
+has a preview walkthrough at `installation/aspid-mvvm/preview/install.webp` and `install.png`; its legacy stable
+release remains available as a version badge. A future manifest-backed stable release enables its stable walkthrough.
 
 The scene preserves the existing FastTools Package Manager layout and five stages: open the window, choose the Git
 URL menu, type the URL, install, and show the installed package. Source provenance is recorded in `source.json`.

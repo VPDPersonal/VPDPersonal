@@ -51,5 +51,10 @@ Stable follows GitHub's designated latest stable release; preview follows the mo
 non-draft prerelease, even when it predates the current stable release. Tag versions, package versions and
 release channels must agree. Only MIT packages are currently supported.
 
+An exact historical stable tag can be listed in `legacyReleases` when it predates the UPM manifest. This opt-in
+publishes only the release-version badge: it does not infer a Unity minimum or advertise a Git installation.
+Manifests are still preferred when present; missing manifests for unlisted releases remain build errors.
+Aspid.MVVM uses this compatibility entry for `v1.0.5`; its published preview uses the regular tagged manifest.
+
 Edit the SVG templates under [`templates`](templates) to change consumers together. Widths grow with version
 text; output stays a portable 32px-high SVG. The HTML template provides a small badge index for Pages.

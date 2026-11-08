@@ -94,6 +94,13 @@ export async function fetchProject(project, request = github) {
       const data = releaseData(release, manifest);
       return project.installation ? {...data, packageId: manifest.name, packageName: manifest.displayName} : data;
     }
+    // Explicit historical Asset Store releases can supply a version, but no Unity minimum or Git installation.
+    if (!release.prerelease && project.legacyReleases?.includes(release.tag_name)) {
+      const version = release.tag_name.replace(/^v/, '');
+      const match = semver.exec(version);
+      if (!match || match[4]) throw new Error(`Invalid legacy stable release: ${release.tag_name}`);
+      return {tag: release.tag_name, version, installation: false};
+    }
     throw new Error(`No package manifest at ${project.repository}@${release.tag_name}`);
   }
   return {...project, stable: await manifestFor(stable), preview: await manifestFor(preview)};
@@ -106,7 +113,7 @@ export async function generatedFiles(sources) {
       if (!release) continue;
       files.set(`${project.slug}/status-badge-${channel === 'stable' ? 'release' : 'preview'}.svg`,
         await renderBadge(channel === 'stable' ? 'release' : 'preview', release.version));
-      files.set(`${project.slug}/${channel === 'preview' ? 'preview/' : ''}status-badge-unity.svg`,
+      if (release.unity) files.set(`${project.slug}/${channel === 'preview' ? 'preview/' : ''}status-badge-unity.svg`,
         await renderBadge('unity', release.unity));
     }
   }
@@ -121,13 +128,14 @@ async function siteIndex(sources) {
       if (!release) return [];
       const kind = label === 'Stable' ? 'release' : 'preview';
       const unity = `badges/${project.slug}/${label === 'Preview' ? 'preview/' : ''}status-badge-unity.svg`;
+      const unityBadge = release.unity ? `<a href="${unity}"><img src="${unity}" alt="Unity ${escapeXml(release.unity)} or newer"></a>` : '';
       const installation = `installation/${project.slug}/${label === 'Preview' ? 'preview/' : ''}install`;
-      const walkthrough = project.installation
+      const walkthrough = project.installation && release.installation !== false
         ? `<picture class="walkthrough"><source srcset="${installation}.webp" type="image/webp"><img src="${installation}.png" alt="Install ${escapeXml(project.repository.split('/')[1])} ${escapeXml(release.version)} from Git" width="896" height="460"></picture>`
         : '';
       return [`<div class="channel"><h3>${label}</h3><div class="badges">
         <a href="${repository}/releases${label === 'Stable' ? '/latest' : ''}"><img src="badges/${project.slug}/status-badge-${kind}.svg" alt="${label} ${escapeXml(release.version)}"></a>
-        <a href="${unity}"><img src="${unity}" alt="Unity ${escapeXml(release.unity)} or newer"></a>
+        ${unityBadge}
       </div></div>${walkthrough}`];
     }).join('\n');
     const banner = project.banner
