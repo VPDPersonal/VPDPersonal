@@ -26,12 +26,12 @@ node --test scripts/badges/*.test.mjs
 node scripts/badges/generate.mjs
 ```
 
-Use Node.js 22 or newer. The build fetches current published data and writes the complete Pages site to
+Use Node.js 22 or newer. The badge-only build fetches current published data and writes a local preview to
 `.artifacts/badges-site/`, which is ignored by Git. A local `GITHUB_TOKEN` is optional and is sent only to
 api.github.com. Actions uses its built-in token. No npm dependencies, personal access token or separate server
 is required.
 
-Enable GitHub Pages for this repository with **Source: GitHub Actions**. The `Shared Aspid badges` workflow
+The production `npm run build` command combines badges with cached banners in `.artifacts/readme-site/`; see `../banners/README.md`. Enable GitHub Pages for this repository with **Source: GitHub Actions**. The `Shared Aspid README media` workflow
 tests and builds pull requests, but deploys only from `main`. It publishes after generator changes reach `main`,
 hourly at minute 23 UTC, or when run manually. The site is served at
 `https://vpdpersonal.github.io/VPDPersonal/`. Build artifacts have one-day retention; the deployed site remains

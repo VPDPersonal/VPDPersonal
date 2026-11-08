@@ -1,0 +1,12 @@
+{
+  "name": "asp-readme-media",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "test": "node --test scripts/badges/*.test.mjs scripts/banners/*.test.mjs",
+    "build:banners": "node scripts/banners/render.mjs",
+    "build": "node scripts/build-site.mjs"
+  },
+  "devDependencies": {"playwright": "1.64.1"}
+}
