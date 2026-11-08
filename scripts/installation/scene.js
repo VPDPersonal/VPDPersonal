@@ -35,13 +35,18 @@
     element('window').setAttribute('aria-label', `Package Manager installs ${config.packageName} from ${config.url}`);
     // Fit the complete channel URL before typing it, preserving the copyable URL's spelling in every frame.
     element('popover').hidden = false;
-    element('typed').style.fontSize = '10.5px';
+    element('typed').style.removeProperty('font-size');
     element('typed').textContent = config.url;
-    await document.fonts.load('400 10.5px "Plex Mono"', config.url + config.packageId);
+    const font = getComputedStyle(element('typed'));
+    const fontSize = parseFloat(font.fontSize);
+    await Promise.all([
+      document.fonts.load(font.font, config.url),
+      document.fonts.load(getComputedStyle(element('package-id')).font, config.packageId),
+    ]);
     await document.fonts.ready;
     const width = element('typed').getBoundingClientRect().width;
     const available = (element('input').clientWidth - 12) * 2;
-    if (width > available) element('typed').style.fontSize = `${10.5 * available / width}px`;
+    if (width > available) element('typed').style.fontSize = `${fontSize * available / width}px`;
     renderAt(4300);
   }
 
