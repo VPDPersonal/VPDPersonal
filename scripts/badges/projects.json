@@ -1,0 +1,17 @@
+[
+  {
+    "slug": "aspid-collections",
+    "repository": "VPDPersonal/Aspid.Collections",
+    "manifests": [
+      "Aspid.Collections/Packages/tech.aspid.collections/package.json",
+      "package.json"
+    ]
+  },
+  {
+    "slug": "aspid-fasttools",
+    "repository": "VPDPersonal/Aspid.FastTools",
+    "manifests": [
+      "Aspid.FastTools/Packages/tech.aspid.fasttools/package.json"
+    ]
+  }
+]

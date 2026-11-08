@@ -1,0 +1,58 @@
+name: Shared Aspid badges
+
+on:
+  pull_request:
+    paths: ['scripts/badges/**', '.github/workflows/badges.yml']
+  push:
+    branches: [main]
+    paths: ['scripts/badges/**', '.github/workflows/badges.yml']
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aspid-badges-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/badges/*.test.mjs
+      - name: Build badges from published releases
+        run: node scripts/badges/generate.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .artifacts/badges-site
+          retention-days: 1
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy badges
+        id: deployment
+        uses: actions/deploy-pages@v4
