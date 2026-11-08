@@ -23,6 +23,13 @@ test('Package Manager captures show the correct package and complete channel URL
         page.on('console', message => {if (message.type() === 'error') errors.push(message.text());});
         await loadInstallationPage(page, job);
         assert.equal(await page.locator('#typed').textContent(), job.url);
+        const alignment = await page.locator('#typed').evaluate(element => {
+          const text = element.getBoundingClientRect();
+          const field = element.parentElement.getBoundingClientRect();
+          return {verticalOffset: Math.abs((text.top + text.bottom - field.top - field.bottom) / 2), leftInset: text.left - field.left};
+        });
+        assert.ok(alignment.verticalOffset < 0.5, `${job.relative}: URL must be vertically centered in the input`);
+        assert.ok(alignment.leftInset < 16, `${job.relative}: URL must start at the input's left padding`);
         const first = await page.screenshot();
         for (const [time, phase] of [[0, 0], [1800, 1], [FALLBACK_TIME, 2], [5000, 3], [6100, 4]]) {
           await page.evaluate(value => window.AspidInstallation.renderAt(value), time);

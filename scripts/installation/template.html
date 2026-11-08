@@ -6,6 +6,7 @@
   <title>Aspid Package Manager walkthrough</title>
   <style>
     @font-face { font-family: Plex Mono; font-style: normal; font-weight: 400; src: url('fonts/plex-mono-latin-400.woff2') format('woff2'); }
+    @font-face { font-family: Plex Sans; font-style: normal; font-weight: 400; src: url('fonts/plex-sans-latin-400.woff2') format('woff2'); }
     * { box-sizing: border-box; }
     body { margin: 0; overflow: hidden; background: #383838; }
     .pm { position: relative; display: flex; flex-direction: column; width: 448px; height: 230px; transform: scale(2); transform-origin: top left; color: #d2d2d2; background: #383838; font: 11.5px/1.4 system-ui, -apple-system, 'Segoe UI', sans-serif; }
@@ -32,8 +33,8 @@
     .pmMenu li { margin: 0; padding: 3px 14px; white-space: nowrap; }
     .pmMenu li[data-hover] { color: #fff; background: #3a79bb; }
     .pmPopover { position: absolute; top: 52px; left: 8px; right: 8px; display: flex; flex-wrap: wrap; gap: 6px; padding: 7px; background: #2f2f2f; border: 1px solid #1c1c1c; border-radius: 4px; box-shadow: 0 6px 18px rgb(0 0 0 / .45); }
-    .pmInput { display: flex; flex: 1; justify-content: flex-end; min-width: 0; overflow: hidden; padding: 2px 6px; background: #1f1f1f; border: 1px solid #3a79bb; border-radius: 3px; }
-    .pmTyped { flex: none; color: #e6e6e6; font-family: Plex Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10.5px; white-space: nowrap; }
+    .pmInput { display: flex; flex: 1; align-items: center; min-width: 0; overflow: hidden; padding: 2px 6px; background: #1f1f1f; border: 1px solid #3a79bb; border-radius: 3px; }
+    .pmTyped { flex: none; color: #e6e6e6; font: 400 11.5px/1 Plex Sans, sans-serif; white-space: nowrap; }
     .pmInstall { padding: 2px 10px; background: #585858; border: 1px solid #2a2a2a; border-radius: 3px; }
     .pmInstall[data-press] { background: #4a6f9a; }
     .pmProgress { flex-basis: 100%; height: 2px; background: #3a79bb; transform-origin: left; }
