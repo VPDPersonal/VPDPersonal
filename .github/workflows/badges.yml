@@ -1,0 +1,64 @@
+name: Shared Aspid badges
+
+on:
+  pull_request:
+    paths: ['scripts/badges/**', 'badges/**', '.github/workflows/badges.yml']
+  push:
+    branches: [main]
+    paths: ['scripts/badges/**', '.github/workflows/badges.yml']
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: badges-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/badges/*.test.mjs
+      - run: node scripts/badges/generate.mjs --check
+
+  refresh:
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Refresh published versions
+        run: node scripts/badges/generate.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Publish changed badges
+        run: |
+          git add -- badges
+          if git diff --cached --quiet; then
+            echo 'Badges are already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: refresh shared Aspid badges' -- badges
+          git pull --rebase origin main
+          git push origin HEAD:main
