@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
+import {mkdtemp, readFile, readdir, rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
 import {test} from 'node:test';
-import {fetchProject, generatedFiles, releaseData, renderBadge} from './generate.mjs';
+import {buildSite, fetchProject, generatedFiles, releaseData, renderBadge} from './generate.mjs';
 
 const project = {slug: 'aspid-example', repository: 'VPDPersonal/Aspid.Example', manifests: ['Package/package.json', 'package.json']};
 const release = (tag, prerelease = false, date = '2026-11-01T12:00:00Z') => ({
@@ -83,4 +86,53 @@ test('unchanged source values produce byte-identical output and share one licens
   const files = await generatedFiles(sources);
   assert.equal(files.size, 3);
   assert.match(files.get('status-badge-license.svg'), /MIT License/);
+});
+
+async function siteDirectory(t) {
+  const parent = await mkdtemp(path.join(tmpdir(), 'aspid-badges-test-'));
+  t.after(() => rm(parent, {recursive: true, force: true}));
+  return path.join(parent, 'site');
+}
+
+test('the Pages artifact contains navigable relative URLs, SVGs and published source data', async (t) => {
+  const output = await siteDirectory(t);
+  const sources = {...project,
+    stable: releaseData(release('v1.2.3'), manifest()),
+    preview: releaseData(release('v1.3.0-rc.1', true), manifest('1.3.0-rc.1')),
+  };
+  await buildSite([project], output, async () => sources);
+  const index = await readFile(path.join(output, 'index.html'), 'utf8');
+  assert.equal(index.includes('{{'), false);
+  assert.match(index, /<h3>Preview<\/h3>/);
+  assert.ok(index.includes('https://github.com/VPDPersonal/Aspid.Example/releases/latest'));
+  for (const [, relative] of index.matchAll(/(?:src|href)="(badges\/[^"]+)"/g)) {
+    await readFile(path.join(output, relative));
+  }
+  assert.match(await readFile(path.join(output, 'badges/aspid-example/status-badge-release.svg'), 'utf8'), /Stable 1\.2\.3/);
+  assert.deepEqual(JSON.parse(await readFile(path.join(output, 'badges/sources.json'), 'utf8')), [sources]);
+  await readFile(path.join(output, '.nojekyll'));
+});
+
+test('a failed source refresh preserves the entire previous artifact', async (t) => {
+  const output = await siteDirectory(t);
+  const sources = {...project, stable: releaseData(release('v1.2.3'), manifest()), preview: null};
+  await buildSite([project], output, async () => sources);
+  const previous = await readFile(path.join(output, 'index.html'), 'utf8');
+  const another = {...project, slug: 'aspid-another'};
+  await assert.rejects(buildSite([project, another], output, async (entry) => {
+    if (entry.slug === 'aspid-another') throw new Error('GitHub 503');
+    return sources;
+  }), /GitHub 503/);
+  assert.equal(await readFile(path.join(output, 'index.html'), 'utf8'), previous);
+  assert.deepEqual(await readdir(path.dirname(output)), ['site']);
+});
+
+test('a fresh artifact removes withdrawn previews and rejects duplicate destinations', async (t) => {
+  const output = await siteDirectory(t);
+  const sources = {...project, stable: null, preview: releaseData(release('v1.3.0-rc.1', true), manifest('1.3.0-rc.1'))};
+  await buildSite([project], output, async () => sources);
+  await buildSite([project], output, async () => ({...sources, stable: releaseData(release('v1.3.0'), manifest('1.3.0')), preview: null}));
+  await assert.rejects(readFile(path.join(output, 'badges/aspid-example/status-badge-preview.svg')), {code: 'ENOENT'});
+  assert.doesNotMatch(await readFile(path.join(output, 'index.html'), 'utf8'), /<h3>Preview<\/h3>/);
+  await assert.rejects(buildSite([project, project], output), /Duplicate/);
 });

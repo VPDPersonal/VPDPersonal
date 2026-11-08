@@ -1,4 +1,4 @@
-import {mkdir, readFile, readdir, rm, writeFile} from 'node:fs/promises';
+import {mkdir, mkdtemp, readFile, rename, rm, writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
@@ -106,51 +106,55 @@ export async function generatedFiles(sources) {
   return files;
 }
 
-async function main() {
-  const flags = process.argv.slice(2);
-  if (flags.some((flag) => !['--check', '--offline'].includes(flag))) throw new Error('Usage: node scripts/badges/generate.mjs [--check | --offline]');
-  const check = flags.includes('--check');
-  const output = path.join(root, 'badges');
-  const projects = JSON.parse(await readFile(path.join(directory, 'projects.json'), 'utf8'));
+async function siteIndex(sources) {
+  const template = await readFile(path.join(directory, 'templates/index.html'), 'utf8');
+  const projects = sources.map((project) => {
+    const repository = `https://github.com/${project.repository}`;
+    const channels = [['Stable', project.stable], ['Preview', project.preview]].flatMap(([label, release]) => {
+      if (!release) return [];
+      const kind = label === 'Stable' ? 'release' : 'preview';
+      const unity = `badges/${project.slug}/${label === 'Preview' ? 'preview/' : ''}status-badge-unity.svg`;
+      return [`<div class="channel"><h3>${label}</h3><div class="badges">
+        <a href="${repository}/releases${label === 'Stable' ? '/latest' : ''}"><img src="badges/${project.slug}/status-badge-${kind}.svg" alt="${label} ${escapeXml(release.version)}"></a>
+        <a href="${unity}"><img src="${unity}" alt="Unity ${escapeXml(release.unity)} or newer"></a>
+      </div></div>`];
+    }).join('\n');
+    return `<article><h2><a href="${repository}">${escapeXml(project.repository.split('/')[1])}</a></h2>${channels}</article>`;
+  }).join('\n');
+  return template.replace('{{projects}}', projects);
+}
+
+export async function buildSite(projects, output, loadProject = fetchProject) {
   if (new Set(projects.map((project) => project.slug)).size !== projects.length) throw new Error('Duplicate badge project slug');
-  // Fetch every source before writing anything. A failed API call leaves all previously published SVGs intact.
-  const sources = check || flags.includes('--offline')
-    ? JSON.parse(await readFile(path.join(output, 'sources.json'), 'utf8'))
-    : await Promise.all(projects.map((project) => fetchProject(project)));
-  if (JSON.stringify(sources.map(({stable, preview, ...project}) => project)) !== JSON.stringify(projects)) {
-    throw new Error('Badge sources do not match projects.json; refresh from GitHub');
-  }
-  for (const source of sources) {
-    for (const [channel, release] of [['stable', source.stable], ['preview', source.preview]]) {
-      if (release) releaseData({tag_name: release.tag, prerelease: channel === 'preview'}, {
-        version: release.version, unity: release.unity.split('.').slice(0, 2).join('.'),
-        unityRelease: release.unity.split('.')[2], license: release.license,
-      });
+  // A failed fetch or build never replaces the previous output. Pages deploys only the fully built artifact.
+  const sources = await Promise.all(projects.map((project) => loadProject(project)));
+  const badges = await generatedFiles(sources);
+  const files = new Map([...badges].map(([relative, content]) => [`badges/${relative}`, content]));
+  files.set('badges/sources.json', `${JSON.stringify(sources, null, 2)}\n`);
+  files.set('index.html', await siteIndex(sources));
+  files.set('.nojekyll', '');
+  await mkdir(path.dirname(output), {recursive: true});
+  const staging = await mkdtemp(path.join(path.dirname(output), '.aspid-badges-'));
+  try {
+    for (const [relative, content] of files) {
+      const destination = path.join(staging, relative);
+      await mkdir(path.dirname(destination), {recursive: true});
+      await writeFile(destination, content);
     }
+    await rm(output, {recursive: true, force: true});
+    await rename(staging, output);
+  } finally {
+    await rm(staging, {recursive: true, force: true});
   }
-  const files = await generatedFiles(sources);
-  files.set('sources.json', `${JSON.stringify(sources, null, 2)}\n`);
-  const existing = await readdir(output, {recursive: true}).catch((error) => {
-    if (error.code === 'ENOENT') return [];
-    throw error;
-  });
-  const obsolete = existing.filter((file) => /(?:^|\/)status-badge-[\w-]+\.svg$/.test(file) && !files.has(file));
-  let changes = 0;
-  for (const [relative, content] of files) {
-    const destination = path.join(output, relative);
-    const current = await readFile(destination, 'utf8').catch((error) => {
-      if (error.code === 'ENOENT') return null;
-      throw error;
-    });
-    if (current === content) continue;
-    if (check) throw new Error(`Outdated badge: badges/${relative}`);
-    await mkdir(path.dirname(destination), {recursive: true});
-    await writeFile(destination, content);
-    changes++;
-  }
-  if (check && obsolete.length) throw new Error(`Obsolete badges: ${obsolete.join(', ')}`);
-  for (const relative of obsolete) await rm(path.join(output, relative));
-  console.log(check ? `Verified ${files.size} generated files` : `Updated ${changes} files; removed ${obsolete.length} obsolete badges`);
+  return files.size;
+}
+
+async function main() {
+  if (process.argv.length !== 2) throw new Error('Usage: node scripts/badges/generate.mjs');
+  const projects = JSON.parse(await readFile(path.join(directory, 'projects.json'), 'utf8'));
+  const output = path.join(root, '.artifacts/badges-site');
+  const count = await buildSite(projects, output);
+  console.log(`Built ${count} files in ${path.relative(root, output)}`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

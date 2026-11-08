@@ -2,7 +2,7 @@ name: Shared Aspid badges
 
 on:
   pull_request:
-    paths: ['scripts/badges/**', 'badges/**', '.github/workflows/badges.yml']
+    paths: ['scripts/badges/**', '.github/workflows/badges.yml']
   push:
     branches: [main]
     paths: ['scripts/badges/**', '.github/workflows/badges.yml']
@@ -14,13 +14,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: badges-${{ github.ref }}
+  group: aspid-badges-pages
   cancel-in-progress: false
 
 jobs:
-  check:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,36 +29,30 @@ jobs:
         with:
           node-version: '22'
       - run: node --test scripts/badges/*.test.mjs
-      - run: node scripts/badges/generate.mjs --check
+      - name: Build badges from published releases
+        run: node scripts/badges/generate.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .artifacts/badges-site
+          retention-days: 1
 
-  refresh:
-    needs: check
+  deploy:
+    needs: build
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Refresh published versions
-        run: node scripts/badges/generate.mjs
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      - name: Publish changed badges
-        run: |
-          git add -- badges
-          if git diff --cached --quiet; then
-            echo 'Badges are already current.'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'chore: refresh shared Aspid badges' -- badges
-          git pull --rebase origin main
-          git push origin HEAD:main
+      - uses: actions/configure-pages@v5
+      - name: Deploy badges
+        id: deployment
+        uses: actions/deploy-pages@v4
