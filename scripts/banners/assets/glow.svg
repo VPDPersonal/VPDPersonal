@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="384" viewBox="0 0 1280 384">
+  <defs>
+    <pattern id="dots" width="240" height="40" patternUnits="userSpaceOnUse">
+      <g fill="white">
+        <circle cx="20" cy="20" r="2.8" opacity=".7"/>
+        <circle cx="60" cy="20" r="3.6"/>
+        <circle cx="100" cy="20" r="3" opacity=".8"/>
+        <circle cx="140" cy="20" r="3.8" opacity=".9"/>
+        <circle cx="180" cy="20" r="2.9" opacity=".75"/>
+        <circle cx="220" cy="20" r="3.4"/>
+      </g>
+    </pattern>
+    <linearGradient id="fade" x2="0" y2="1">
+      <stop offset="78%" stop-color="white" stop-opacity="0"/>
+      <stop offset="100%" stop-color="white" stop-opacity=".75"/>
+    </linearGradient>
+    <mask id="bottom" mask-type="alpha">
+      <rect width="1280" height="384" fill="url(#fade)"/>
+    </mask>
+  </defs>
+  <rect width="1280" height="384" fill="url(#dots)" mask="url(#bottom)"/>
+</svg>

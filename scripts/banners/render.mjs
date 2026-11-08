@@ -53,7 +53,7 @@ export async function sourceDigest(projects) {
   const hash = createHash('sha256').update(process.platform).update(JSON.stringify(bannerProjects(projects).map(({slug, banner}) => ({slug, banner}))));
   const files = (await readdir(directory, {recursive: true, withFileTypes: true})).filter(entry => entry.isFile())
     .map(entry => path.join(entry.parentPath ?? entry.path, entry.name))
-    .filter(file => /\.(?:html|js|mjs|png|woff2)$/.test(file) && !file.endsWith('.test.mjs')).sort();
+    .filter(file => /\.(?:html|js|mjs|png|svg|woff2)$/.test(file) && !file.endsWith('.test.mjs')).sort();
   for (const file of files) hash.update(path.relative(directory, file)).update(await readFile(file));
   hash.update(await readFile(path.join(root, 'package-lock.json')));
   return hash.digest('hex');
@@ -90,9 +90,9 @@ export async function loadBannerPage(page, banner) {
   page.on('pageerror', error => failures.push(error.message));
   const [template, mask] = await Promise.all([
     readFile(path.join(directory, 'template.html'), 'utf8'),
-    readFile(path.join(directory, 'assets/glow.png')),
+    readFile(path.join(directory, 'assets/glow.svg')),
   ]);
-  const html = template.replace("url('assets/glow.png')", `url('data:image/png;base64,${mask.toString('base64')}')`);
+  const html = template.replace("url('assets/glow.svg')", `url('data:image/svg+xml;base64,${mask.toString('base64')}')`);
   const url = `${pathToFileURL(path.join(directory, 'template.html'))}?capture=1`;
   // Fulfill the template in memory, retaining file-relative fonts and artwork while avoiding file-mask CORS.
   await page.route(url, route => route.fulfill({contentType: 'text/html', body: html}));

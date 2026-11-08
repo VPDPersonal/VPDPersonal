@@ -4,10 +4,12 @@ The project configuration is `scripts/badges/projects.json`. Each project with a
 `title` and `subtitle`; the shared scene supplies the logo, typography, dot field, green glow and looping sparks.
 The heading fits the available text column automatically. Unsupported or overflowing text fails the build.
 
-The source layout, logo and glow mask come from Aspid.Media.Storage's dark green README banner. The exported
+The source layout and logo come from Aspid.Media.Storage's dark green README banner. The exported
 animated HTML contains a finished WebP, not an editable animation scene. The shared canvas scene rebuilds its
 subtle dot/glow/spark motion as a deterministic loop; it does not store or modify a rendered package banner.
-`source.json` records the source archive and its digest. IBM Plex 500 fonts are vendored with their OFL licenses.
+The dot field uses the original FastTools animated banner's 40px spacing, 4px base dots and larger green dots
+near the bottom. Its shared SVG glow mask stays aligned with that grid. `source.json` records the source archive,
+its digest and the animated reference. IBM Plex 500 fonts are vendored with their OFL licenses.
 
 ## Render locally
 

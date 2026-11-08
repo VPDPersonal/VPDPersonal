@@ -3,5 +3,10 @@
   "commit": "f1691fae35f5848cb4c913ea51e8770da5dc3a12",
   "path": "FastTools/Readme/README Banner Green.html",
   "sha256": "e278855f63a50cc801bafc9789613faa03662c8e4f5ef88c2018ee23e556bdd3",
-  "description": "Logo, glow mask and layout extracted from the dark green source page; font assets are IBM Plex 500 from @fontsource 5.3.0."
+  "description": "Logo and layout extracted from the dark green source page; font assets are IBM Plex 500 from @fontsource 5.3.0. The glow mask is recreated as SVG on the original animated banner's 40px dot grid.",
+  "dotReference": {
+    "repository": "VPDPersonal/Aspid.FastTools",
+    "path": "Website/docs/Images/aspid_fasttools_readme_banner_dark.webp",
+    "blob": "84988a2c3537b0fcc039df74d17af2297ae552e3"
+  }
 }
