@@ -1,0 +1,6 @@
+{
+  "repository": "VPDPersonal/Aspid.FastTools",
+  "commit": "99baabd280b3d3efb3df7ffa8b62678f6abdab52",
+  "paths": ["Website/src/components/InstallPanel/index.js", "Website/src/components/InstallPanel/styles.module.css"],
+  "description": "Package Manager markup, dark editor palette and five-stage 8.2-second walkthrough, made deterministic for shared README captures. IBM Plex Mono 400 is vendored from @fontsource/ibm-plex-mono 5.3.0 with its OFL license."
+}

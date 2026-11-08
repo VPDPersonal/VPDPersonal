@@ -2,6 +2,7 @@
   {
     "slug": "aspid-collections",
     "repository": "VPDPersonal/Aspid.Collections",
+    "installation": true,
     "banner": {
       "title": "Aspid.Collections",
       "subtitle": "Observable Collections for Unity and .NET"
@@ -14,6 +15,7 @@
   {
     "slug": "aspid-fasttools",
     "repository": "VPDPersonal/Aspid.FastTools",
+    "installation": true,
     "banner": {
       "title": "Aspid.FastTools",
       "subtitle": "Boilerplate Killer for Unity"

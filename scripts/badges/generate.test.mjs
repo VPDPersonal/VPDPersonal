@@ -57,6 +57,17 @@ test('a preview-only project works without advertising a stable release', async 
   assert.match(files.get('aspid-example/status-badge-preview.svg'), /Preview 1.0.0-beta.1/);
 });
 
+test('installation identity comes from the same tagged manifest as the version badge', async () => {
+  const result = await fetchProject({...project, installation: true}, async url => {
+    if (url.endsWith('/releases/latest')) return release('v1.2.3');
+    if (url.includes('/releases?')) return [];
+    return content({...manifest(), name: 'tech.aspid.example', displayName: 'Aspid.Example'});
+  });
+  assert.equal(result.stable.packageId, 'tech.aspid.example');
+  assert.equal(result.stable.packageName, 'Aspid.Example');
+  assert.equal(result.stable.version, '1.2.3');
+});
+
 test('an API outage or a missing published manifest fails instead of substituting development data', async () => {
   await assert.rejects(fetchProject(project, async () => {throw new Error('GitHub 503');}), /503/);
   await assert.rejects(fetchProject(project, async (url) => {
