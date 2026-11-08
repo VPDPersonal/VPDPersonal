@@ -18,13 +18,18 @@ export function textWidth(text) {
 
 export async function renderBadge(kind, value = '') {
   const template = await readFile(path.join(directory, 'templates', `${kind}.svg`), 'utf8');
+  if (kind === 'license') return template;
   const title = kind === 'unity' ? `Unity ${value}+` : `${kind === 'preview' ? 'Preview' : 'Stable'} ${value}`;
   const width = kind === 'unity' ? 37 + textWidth(title) + 14 : (kind === 'preview' ? 90 : 82) + textWidth(value) + 14;
-  const tokens = {title, version: value, width, outlineWidth: width - 1};
+  const tokens = {title, version: value};
   return template.replace(/\{\{(\w+)\}\}/g, (_, key) => {
     if (!(key in tokens)) throw new Error(`Unknown template token: ${key}`);
     return escapeXml(tokens[key]);
-  });
+  })
+    // Numeric defaults keep the source SVG previewable; generated badges resize to their actual text.
+    .replace(/(<svg\b[^>]*\bwidth=")\d+/, (_, prefix) => `${prefix}${width}`)
+    .replace(/(<svg\b[^>]*\bviewBox=")0 0 \d+ 32/, (_, prefix) => `${prefix}0 0 ${width} 32`)
+    .replace(/(<rect\b[^>]*class="outline"[^>]*\bwidth=")\d+/, (_, prefix) => `${prefix}${width - 1}`);
 }
 
 export function releaseData(release, manifest) {

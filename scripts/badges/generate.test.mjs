@@ -72,12 +72,25 @@ test('long versions fit and the SVG retains both themes with escaped accessible 
   const long = await renderBadge('preview', '123.456.789-preview.12345');
   const width = (svg) => Number(svg.match(/width="(\d+)"/)[1]);
   assert.ok(width(long) > width(short) + 100);
+  assert.ok(long.includes(`viewBox="0 0 ${width(long)} 32"`));
+  assert.match(long, new RegExp(`<rect class="outline"[^>]*width="${width(long) - 1}"`));
   assert.match(long, /prefers-color-scheme: dark/);
   assert.match(long, /<text class="gold"[^>]*>Preview<\/text>/);
   assert.equal(long.includes('{{'), false);
   const escaped = await renderBadge('unity', '2021.3<&"');
   assert.match(escaped, /aria-label="Unity 2021.3&lt;&amp;&quot;\+"/);
   assert.match(await renderBadge('release', '1.2.3'), /class="anchor"/);
+});
+
+test('source templates have valid numeric geometry before any text substitution', async () => {
+  for (const kind of ['unity', 'release', 'preview', 'license']) {
+    const svg = await readFile(new URL(`templates/${kind}.svg`, import.meta.url), 'utf8');
+    const width = Number(svg.match(/<svg\b[^>]*\bwidth="([^"]+)"/)[1]);
+    assert.ok(Number.isFinite(width) && width > 0, kind);
+    assert.match(svg, /<svg\b[^>]*\bheight="32"/);
+    assert.ok(svg.includes(`viewBox="0 0 ${width} 32"`), kind);
+    assert.match(svg, new RegExp(`<rect class="outline"[^>]*width="${width - 1}"`));
+  }
 });
 
 test('unchanged source values produce byte-identical output and share one license badge', async () => {
