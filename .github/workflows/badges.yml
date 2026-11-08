@@ -1,11 +1,11 @@
-name: Shared Aspid badges
+name: Shared Aspid README media
 
 on:
   pull_request:
-    paths: ['scripts/badges/**', '.github/workflows/badges.yml']
+    paths: ['scripts/**', 'package.json', 'package-lock.json', '.github/workflows/badges.yml']
   push:
     branches: [main]
-    paths: ['scripts/badges/**', '.github/workflows/badges.yml']
+    paths: ['scripts/**', 'package.json', 'package-lock.json', '.github/workflows/badges.yml']
   schedule:
     - cron: '23 * * * *'
   workflow_dispatch:
@@ -20,7 +20,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,16 +28,33 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test scripts/badges/*.test.mjs
-      - name: Build badges from published releases
-        run: node scripts/badges/generate.mjs
+          cache: npm
+      - run: npm ci
+      - name: Restore rendered banners
+        id: banners
+        uses: actions/cache@v4
+        with:
+          path: .artifacts/banner-cache
+          key: ${{ runner.os }}-aspid-banners-v1-${{ hashFiles('scripts/banners/**', 'scripts/badges/projects.json', 'package-lock.json') }}
+      - name: Install banner renderer
+        if: steps.banners.outputs.cache-hit != 'true'
+        run: |
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y webp
+      - run: npm test
+      - name: Check captured glow in browser
+        if: steps.banners.outputs.cache-hit != 'true'
+        run: npm run test:banner-browser
+      - name: Build banners and current release badges
+        run: npm run build
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .artifacts/badges-site
+          path: .artifacts/readme-site
           retention-days: 1
 
   deploy:
@@ -53,6 +70,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/configure-pages@v5
-      - name: Deploy badges
+      - name: Deploy README media
         id: deployment
         uses: actions/deploy-pages@v4

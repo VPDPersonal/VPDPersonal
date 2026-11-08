@@ -124,7 +124,10 @@ async function siteIndex(sources) {
         <a href="${unity}"><img src="${unity}" alt="Unity ${escapeXml(release.unity)} or newer"></a>
       </div></div>`];
     }).join('\n');
-    return `<article><h2><a href="${repository}">${escapeXml(project.repository.split('/')[1])}</a></h2>${channels}</article>`;
+    const banner = project.banner
+      ? `<picture class="banner"><source srcset="banners/${project.slug}/banner.webp" type="image/webp"><img src="banners/${project.slug}/banner.png" alt="${escapeXml(project.banner.title)}" width="1280" height="384"></picture>`
+      : '';
+    return `<article><h2><a href="${repository}">${escapeXml(project.repository.split('/')[1])}</a></h2>${banner}${channels}</article>`;
   }).join('\n');
   return template.replace('{{projects}}', projects);
 }
@@ -156,7 +159,7 @@ export async function buildSite(projects, output, loadProject = fetchProject) {
 
 async function main() {
   if (process.argv.length !== 2) throw new Error('Usage: node scripts/badges/generate.mjs');
-  const projects = JSON.parse(await readFile(path.join(directory, 'projects.json'), 'utf8'));
+  const projects = JSON.parse(await readFile(path.join(directory, 'projects.json'), 'utf8')).map(({banner, ...project}) => project);
   const output = path.join(root, '.artifacts/badges-site');
   const count = await buildSite(projects, output);
   console.log(`Built ${count} files in ${path.relative(root, output)}`);

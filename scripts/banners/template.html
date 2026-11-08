@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aspid README banner template</title>
+  <style>
+    @font-face { font-family: Plex Sans; font-style: normal; font-weight: 500; src: url('fonts/plex-sans-latin-500.woff2') format('woff2'); }
+    @font-face { font-family: Plex Sans; font-style: normal; font-weight: 500; src: url('fonts/plex-sans-cyrillic-500.woff2') format('woff2'); unicode-range: U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+    @font-face { font-family: Plex Serif; font-style: normal; font-weight: 500; src: url('fonts/plex-serif-latin-500.woff2') format('woff2'); }
+    @font-face { font-family: Plex Serif; font-style: normal; font-weight: 500; src: url('fonts/plex-serif-cyrillic-500.woff2') format('woff2'); unicode-range: U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #06080b; }
+    #banner { width: 1280px; height: 384px; position: relative; overflow: hidden; background: #06080b; }
+    #banner::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(146,149,159,.18) 1.5px, transparent 1.85px); background-size: 30px 30px; background-position: 0 9px; }
+    #glow { position: absolute; inset: 0; background: #5cb46b; mask: url('assets/glow.png') 0 0 / 1280px 384px no-repeat; }
+    canvas { position: absolute; inset: 0; width: 1280px; height: 384px; }
+    #content { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; gap: 48px; }
+    #logo { flex: 0 0 auto; width: 303px; height: 300px; object-fit: contain; }
+    #copy { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+    h1 { margin: 0; font-family: Plex Serif, Georgia, serif; font-size: 112px; font-weight: 500; line-height: 1; letter-spacing: -.02em; white-space: nowrap; color: #f0f0f2; }
+    h1 span { color: #5cb46b; }
+    p { margin: 0; font: 500 42px/1.2 Plex Sans, sans-serif; white-space: nowrap; color: #e1e2e6; }
+  </style>
+</head>
+<body>
+  <div id="banner">
+    <div id="glow"></div>
+    <canvas aria-hidden="true"></canvas>
+    <div id="content">
+      <img id="logo" src="assets/logo.png" alt="Aspid">
+      <div id="copy"><h1><span>Aspid.</span><b></b></h1><p></p></div>
+    </div>
+  </div>
+  <script src="scene.js"></script>
+</body>
+</html>
