@@ -37,5 +37,18 @@
       "package.json"
     ],
     "legacyReleases": ["v1.0.5"]
+  },
+  {
+    "slug": "aspid-core-hsm",
+    "repository": "VPDPersonal/Aspid.Core.HSM",
+    "installation": false,
+    "banner": {
+      "title": "Aspid.Core.HSM",
+      "subtitle": "Hierarchical State Machine for Unity"
+    },
+    "manifests": [
+      "Aspid.Core.HSM/Assets/Plugins/Aspid/Core/HSM/package.json",
+      "package.json"
+    ]
   }
 ]
