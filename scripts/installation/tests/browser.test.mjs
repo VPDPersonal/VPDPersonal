@@ -15,6 +15,8 @@ test('Package Manager captures show the correct package and complete channel URL
       {slug: 'aspid-mvvm', repository: 'VPDPersonal/Aspid.MVVM', installation: true,
         stable: {version: '1.0.5', installation: false},
         preview: {packageId: 'tech.aspid.mvvm', packageName: 'Aspid.MVVM', version: '1.1.0-beta.1'}},
+      {slug: 'aspid-core-hsm', repository: 'VPDPersonal/Aspid.Core.HSM', installation: true,
+        preview: {packageId: 'com.aspid.core.hsm', packageName: 'Aspid.Core.HSM', version: '0.0.1-alpha.7'}},
     ];
     for (const job of installationJobs(sources)) {
       for (const deviceScaleFactor of [1, 2]) {
