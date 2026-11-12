@@ -41,7 +41,7 @@
   {
     "slug": "aspid-core-hsm",
     "repository": "VPDPersonal/Aspid.Core.HSM",
-    "installation": false,
+    "installation": true,
     "banner": {
       "title": "Aspid.Core.HSM",
       "subtitle": "Hierarchical State Machine for Unity"
