@@ -1,5 +1,6 @@
 import {mkdir, mkdtemp, readFile, rename, rm, writeFile} from 'node:fs/promises';
 import path from 'node:path';
+import {supportFiles} from '../support/files.mjs';
 import {fileURLToPath} from 'node:url';
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
@@ -152,6 +153,7 @@ export async function buildSite(projects, output, loadProject = fetchProject) {
   const sources = await Promise.all(projects.map((project) => loadProject(project)));
   const badges = await generatedFiles(sources);
   const files = new Map([...badges].map(([relative, content]) => [`badges/${relative}`, content]));
+  for (const [name, content] of await supportFiles()) files.set(`support/${name}`, content);
   files.set('badges/sources.json', `${JSON.stringify(sources, null, 2)}\n`);
   files.set('index.html', await siteIndex(sources));
   files.set('.nojekyll', '');

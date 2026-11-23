@@ -159,8 +159,17 @@ test('the Pages artifact contains navigable relative URLs, SVGs and published so
   assert.equal(index.includes('{{'), false);
   assert.match(index, /<h3>Preview<\/h3>/);
   assert.ok(index.includes('https://github.com/VPDPersonal/Aspid.Example/releases/latest'));
-  for (const [, relative] of index.matchAll(/(?:src|href)="(badges\/[^"]+)"/g)) {
+  for (const [, relative] of index.matchAll(/(?:src|href)="((?:badges|support)\/[^"]+)"/g)) {
     await readFile(path.join(output, relative));
+  }
+  for (const [button, icon, mime] of [
+    ['kofi-button.svg', 'kofi-cup.png', 'image/png'],
+    ['unity-asset-store-button.svg', 'unity-mark.svg', 'image/svg+xml'],
+  ]) {
+    const svg = await readFile(path.join(output, 'support', button), 'utf8');
+    const data = await readFile(path.join(output, 'support', icon));
+    assert.ok(svg.includes(`href="data:${mime};base64,${data.toString('base64')}"`));
+    assert.ok(svg.includes('id="stacked"'));
   }
   assert.match(await readFile(path.join(output, 'badges/aspid-example/status-badge-release.svg'), 'utf8'), /Stable 1\.2\.3/);
   assert.deepEqual(JSON.parse(await readFile(path.join(output, 'badges/sources.json'), 'utf8')), [sources]);
