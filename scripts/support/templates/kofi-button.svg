@@ -1,0 +1,14 @@
+<svg id="stacked" xmlns="http://www.w3.org/2000/svg" width="100%" height="48">
+  <title>Tip on Ko-fi</title>
+  <style>
+    .bg{fill:#1d8840;width:calc(100% - 3px)}
+    :target .bg{width:100%}
+    .ink{fill:#fff}@media(prefers-color-scheme:dark){.bg{fill:#5cb46b}.ink{fill:#06140a}}
+  </style>
+  <rect class="bg" y="1" height="46" rx="8"/>
+  <svg x="50%" width="1" height="48" overflow="visible">
+    <!-- Original cup: https://storage.ko-fi.com/cdn/cup-border.png -->
+    <image x="-56" y="12" width="27" height="23" href="{{icon}}"/>
+    <text class="ink" x="-21" y="29" font-family="Arial, sans-serif" font-size="16" font-weight="700">Tip on Ko-fi</text>
+  </svg>
+</svg>
