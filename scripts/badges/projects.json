@@ -36,7 +36,9 @@
       "Aspid.MVVM/Packages/tech.aspid.mvvm/package.json",
       "package.json"
     ],
-    "legacyReleases": ["v1.0.5"]
+    "legacyReleases": [
+      "v1.0.5"
+    ]
   },
   {
     "slug": "aspid-core-hsm",
@@ -50,5 +52,14 @@
       "Aspid.Core.HSM/Assets/Plugins/Aspid/Core/HSM/package.json",
       "package.json"
     ]
+  },
+  {
+    "slug": "aspid-previewscroll",
+    "repository": "VPDPersonal/Aspid.PreviewScroll",
+    "bannerOnly": true,
+    "banner": {
+      "title": "Aspid.PreviewScroll",
+      "subtitle": "Keyboard scrolling from the project tree"
+    }
   }
 ]
