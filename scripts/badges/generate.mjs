@@ -70,6 +70,7 @@ export async function fetchProject(project, request = github) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(project.slug) || !/^[\w.-]+\/[\w.-]+$/.test(project.repository)) {
     throw new Error('Invalid badge project configuration');
   }
+  if (project.bannerOnly === true) return {...project, stable: null, preview: null};
   const api = `/repos/${project.repository}`;
   const stable = await request(`${api}/releases/latest`, true);
   let preview = null;
@@ -110,6 +111,11 @@ export async function fetchProject(project, request = github) {
 export async function generatedFiles(sources) {
   const files = new Map([['status-badge-license.svg', await renderBadge('license')]]);
   for (const project of sources) {
+    if (project.slug === 'aspid-previewscroll' && project.bannerOnly === true) {
+      for (const name of ['platform.svg', 'version.svg']) {
+        files.set(`${project.slug}/${name}`, await readFile(path.join(directory, 'assets', project.slug, name), 'utf8'));
+      }
+    }
     for (const [channel, release] of [['stable', project.stable], ['preview', project.preview]]) {
       if (!release) continue;
       files.set(`${project.slug}/status-badge-${channel === 'stable' ? 'release' : 'preview'}.svg`,

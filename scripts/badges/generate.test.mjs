@@ -199,3 +199,14 @@ test('a fresh artifact removes withdrawn previews and rejects duplicate destinat
   assert.doesNotMatch(await readFile(path.join(output, 'index.html'), 'utf8'), /<h3>Preview<\/h3>/);
   await assert.rejects(buildSite([project, project], output), /Duplicate/);
 });
+
+
+test('banner-only projects do not require published releases', async () => {
+  const project = {slug: 'aspid-previewscroll', repository: 'VPDPersonal/Aspid.PreviewScroll', bannerOnly: true};
+  const result = await fetchProject(project, () => { throw new Error('Unexpected network request'); });
+  assert.equal(result.stable, null);
+  assert.equal(result.preview, null);
+  const files = await generatedFiles([result]);
+  assert.match(files.get('aspid-previewscroll/platform.svg'), /JetBrains/);
+  assert.match(files.get('aspid-previewscroll/version.svg'), /0\.2\.0/);
+});
