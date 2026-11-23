@@ -59,4 +59,6 @@ Aspid.MVVM uses this compatibility entry for `v1.0.5`; its published preview use
 Edit the SVG templates under [`templates`](templates) to change consumers together. Widths grow with version
 text; output stays a portable 32px-high SVG. The HTML template provides a small badge index for Pages.
 
-Projects marked `bannerOnly` do not fetch release metadata. Aspid.PreviewScroll also publishes its static platform and development version badges from `assets/aspid-previewscroll`; update the version badge when the plugin version changes.
+Projects marked `bannerOnly` skip the release metadata lookup. To publish SVGs alongside a banner, list their
+filenames in `staticBadges` and place them under `assets/<slug>/`. Update those badges when the requirements
+or distribution status change.
