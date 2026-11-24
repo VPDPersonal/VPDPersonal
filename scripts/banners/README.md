@@ -1,7 +1,8 @@
 # Shared README banners
 
 The project configuration is `scripts/badges/projects.json`. Each project with a `banner` object supplies its
-`title` and `subtitle`; the shared scene supplies the logo, typography, dot field, green glow and looping sparks.
+`title` and `subtitle`. An optional `logo` names a PNG or SVG under `scripts/banners/assets/`.
+The shared scene supplies the default logo, typography, dot field, green glow and looping sparks.
 The heading fits the available text column automatically. Unsupported or overflowing text fails the build.
 
 The source layout and logo come from Aspid.Media.Storage's dark green README banner. The exported

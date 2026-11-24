@@ -2,6 +2,8 @@
   const duration = 7840;
   const title = document.querySelector('h1');
   const subtitle = document.querySelector('p');
+  const logo = document.querySelector('#logo');
+  const defaultLogo = logo.getAttribute('src');
   const canvas = document.querySelector('canvas');
   const glow = document.querySelector('#glow');
   const ratio = devicePixelRatio;
@@ -41,6 +43,7 @@
     title.querySelector('b').textContent = config.title.slice(prefix.length);
     title.querySelector('b').style.fontWeight = 'inherit';
     subtitle.textContent = config.subtitle;
+    logo.src = config.logo ? `assets/${config.logo}` : defaultLogo;
     await Promise.all([
       document.fonts.load('500 112px "Plex Serif"', config.title),
       document.fonts.load('500 42px "Plex Sans"', config.subtitle),
@@ -48,13 +51,13 @@
     await document.fonts.ready;
     for (const [element, base] of [[title, 112], [subtitle, 42]]) {
       element.style.fontSize = `${base}px`;
-      // Each project keeps the same logo and margins; long titles scale inside the available text column.
+      // Long titles scale inside the available text column.
       const range = document.createRange();
       range.selectNodeContents(element);
       const width = range.getBoundingClientRect().width;
       if (width > 824) element.style.fontSize = `${Math.max(16, base * 824 / width)}px`;
     }
-    await document.querySelector('#logo').decode();
+    await logo.decode();
     renderAt(0);
   }
 

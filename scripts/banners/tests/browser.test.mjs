@@ -14,6 +14,9 @@ test('file-based banner captures include a visible, animated glow without resour
         const errors = [];
         page.on('console', message => {if (message.type() === 'error') errors.push(message.text());});
         await loadBannerPage(page, project.banner);
+        const logo = await page.locator('#logo').evaluate(image => ({src: image.currentSrc, width: image.naturalWidth}));
+        assert.ok(logo.src.endsWith(`/assets/${project.banner.logo ?? 'logo.png'}`), `${project.slug}: incorrect logo`);
+        assert.ok(logo.width > 0, `${project.slug}: logo did not decode`);
         const visible = await page.screenshot();
         await page.locator('#glow').evaluate(element => {element.style.visibility = 'hidden';});
         const hidden = await page.screenshot();

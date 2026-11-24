@@ -23,6 +23,10 @@ export function bannerProjects(projects) {
       const value = project.banner[key];
       if (typeof value !== 'string' || !value.trim() || value.length > limit || /[\r\n\x00-\x1f]/.test(value)) throw new Error(`Invalid banner ${key}`);
     }
+    const {logo} = project.banner;
+    if (logo !== undefined && (typeof logo !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*\.(?:png|svg)$/.test(logo))) {
+      throw new Error('Invalid banner logo filename');
+    }
   }
   return result;
 }
