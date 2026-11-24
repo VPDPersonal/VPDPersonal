@@ -57,9 +57,20 @@
     "slug": "aspid-previewscroll",
     "repository": "VPDPersonal/Aspid.PreviewScroll",
     "bannerOnly": true,
+    "staticBadges": ["platform.svg", "version.svg"],
     "banner": {
       "title": "Aspid.PreviewScroll",
       "subtitle": "Keyboard scrolling from the project tree"
+    }
+  },
+  {
+    "slug": "aspid-translator-github",
+    "repository": "VPDPersonal/Aspid.Translator.GitHub",
+    "bannerOnly": true,
+    "staticBadges": ["platform.svg", "preview.svg"],
+    "banner": {
+      "title": "Aspid.Translator.GitHub",
+      "subtitle": "In-Page Translation for GitHub"
     }
   }
 ]

@@ -111,10 +111,8 @@ export async function fetchProject(project, request = github) {
 export async function generatedFiles(sources) {
   const files = new Map([['status-badge-license.svg', await renderBadge('license')]]);
   for (const project of sources) {
-    if (project.slug === 'aspid-previewscroll' && project.bannerOnly === true) {
-      for (const name of ['platform.svg', 'version.svg']) {
-        files.set(`${project.slug}/${name}`, await readFile(path.join(directory, 'assets', project.slug, name), 'utf8'));
-      }
+    for (const name of project.staticBadges ?? []) {
+      files.set(`${project.slug}/${name}`, await readFile(path.join(directory, 'assets', project.slug, name), 'utf8'));
     }
     for (const [channel, release] of [['stable', project.stable], ['preview', project.preview]]) {
       if (!release) continue;
