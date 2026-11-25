@@ -70,7 +70,8 @@
     "staticBadges": ["platform.svg", "preview.svg"],
     "banner": {
       "title": "Aspid.Translator.GitHub",
-      "subtitle": "In-Page Translation for GitHub"
+      "subtitle": "In-Page Translation for GitHub",
+      "logo": "translator-github.svg"
     }
   }
 ]
