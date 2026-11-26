@@ -214,6 +214,21 @@ test('banner-only projects do not require published releases', async () => {
   const files = await generatedFiles(sources);
   assert.match(files.get('aspid-previewscroll/platform.svg'), /JetBrains/);
   assert.match(files.get('aspid-previewscroll/version.svg'), /0\.2\.0/);
+});
+
+test('the Translator badge uses the latest published tag and its npm manifest', async () => {
+  const config = JSON.parse(await readFile(new URL('./projects.json', import.meta.url), 'utf8'));
+  const translator = config.find(project => project.slug === 'aspid-translator-github');
+  const api = `/repos/${translator.repository}`;
+  const source = await fetchProject(translator, async url => {
+    if (url === `${api}/releases/latest`) return release('v0.1.0');
+    if (url === `${api}/releases?per_page=100&page=1`) return [];
+    if (url === `${api}/contents/package.json?ref=v0.1.0`) return content({version: '0.1.0', license: 'MIT'});
+    throw new Error(`Unexpected request ${url}`);
+  });
+  const files = await generatedFiles([source]);
+  assert.match(files.get('aspid-translator-github/status-badge-release.svg'), /Stable 0\.1\.0/);
   assert.match(files.get('aspid-translator-github/platform.svg'), /Chrome 138\+/);
   assert.match(files.get('aspid-translator-github/preview.svg'), /Private preview/);
+  assert.equal(files.has('aspid-translator-github/status-badge-unity.svg'), false);
 });

@@ -33,22 +33,20 @@ export async function renderBadge(kind, value = '') {
     .replace(/(<rect\b[^>]*class="outline"[^>]*\bwidth=")\d+/, (_, prefix) => `${prefix}${width - 1}`);
 }
 
-export function releaseData(release, manifest) {
+export function releaseData(release, manifest, {requiresUnity = true} = {}) {
   const version = release.tag_name.replace(/^v/, '');
   const match = semver.exec(version);
   if (!match || version !== manifest.version || Boolean(match[4]) !== release.prerelease) {
     throw new Error(`Release ${release.tag_name} disagrees with package version or channel (${manifest.version})`);
   }
+  if (manifest.license !== 'MIT') throw new Error(`Unsupported license in ${release.tag_name}: ${manifest.license}`);
+  const data = {tag: release.tag_name, version, license: manifest.license};
+  if (!requiresUnity) return data;
   if (!/^\d{4}\.\d+$/.test(manifest.unity) || (manifest.unityRelease && !/^\d+[abfp]\d+$/.test(manifest.unityRelease))) {
     throw new Error(`Invalid minimum Unity version in ${release.tag_name}`);
   }
-  if (manifest.license !== 'MIT') throw new Error(`Unsupported license in ${release.tag_name}: ${manifest.license}`);
-  return {
-    tag: release.tag_name,
-    version,
-    unity: manifest.unityRelease ? `${manifest.unity}.${manifest.unityRelease}` : manifest.unity,
-    license: manifest.license,
-  };
+  const unity = manifest.unityRelease ? `${manifest.unity}.${manifest.unityRelease}` : manifest.unity;
+  return {...data, unity};
 }
 
 async function github(resource, optional = false) {
@@ -93,7 +91,7 @@ export async function fetchProject(project, request = github) {
       if (!file) continue;
       if (file.encoding !== 'base64' || file.type !== 'file') throw new Error(`Invalid manifest: ${candidate}`);
       const manifest = JSON.parse(Buffer.from(file.content, 'base64').toString('utf8'));
-      const data = releaseData(release, manifest);
+      const data = releaseData(release, manifest, project);
       return project.installation ? {...data, packageId: manifest.name, packageName: manifest.displayName} : data;
     }
     // Explicit historical Asset Store releases can supply a version, but no Unity minimum or Git installation.
